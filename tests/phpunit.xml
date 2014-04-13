@@ -1,0 +1,9 @@
+<phpunit bootstrap="./YafUnit_TestCase.php">
+  <testsuites>
+    <testsuite name="Yaf">
+        <file>Examples/ExampleBaseTest.php</file>
+        <file>Examples/ExampleYafTest.php</file>
+        <file>controllers/CalculateTest.php</file>
+    </testsuite>
+  </testsuites>
+</phpunit>
