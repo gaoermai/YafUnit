@@ -50,7 +50,7 @@ class ExceptionHandler {
             if ( method_exists($trace['class'], 'defaultExceptionHandler' ) ) {
                 call_user_func_array(
                     array( $trace['class'], 'defaultExceptionHandler' ), 
-                    array( $this->_exception )
+                    array( $exception )
                 );
                 exit();
             }
