@@ -1,9 +1,17 @@
-<phpunit bootstrap="./YafUnit_TestCase.php">
-  <testsuites>
-    <testsuite name="Yaf">
-        <file>examples/ExampleBaseTest.php</file>
-        <file>examples/ExampleYafTest.php</file>
-        <file>controllers/CalculateTest.php</file>
-    </testsuite>
-  </testsuites>
+<phpunit bootstrap="./TestCase.php">
+    <testsuites>
+        <testsuite name="Controllers">
+            <file>controllers/UserTest.php</file>
+        </testsuite>
+        <testsuite name="Models">
+            <file>models/UserTest.php</file>
+        </testsuite>
+        <testsuite name="Libraries">
+            <file>library/Util/ValidateTest.php</file>
+        </testsuite>
+        <testsuite name="Services">
+            <file>Services/Http/Request/CurlTest.php</file>
+            <file>Services/Http/Request/CurlMaterialTest.php</file>
+        </testsuite>
+    </testsuites>
 </phpunit>
