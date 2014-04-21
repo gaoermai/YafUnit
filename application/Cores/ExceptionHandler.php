@@ -23,7 +23,6 @@ namespace Cores;
  * define Yaf\ERR\AUTOLOAD_FAILED     520
  * define Yaf\ERR\TYPE\ERROR          521
  */
-
 class ExceptionHandler {
 
     /**
