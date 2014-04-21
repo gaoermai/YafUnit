@@ -4,7 +4,7 @@
  * @author Lancer He <lancer.he@gmail.com>
  * @since  2014-04-18
  */
-namespace Services\Exception;
+namespace Cores\Exception;
 
 class DbInsertFailureException extends \Cores\Exception {
 

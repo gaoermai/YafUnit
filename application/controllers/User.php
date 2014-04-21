@@ -142,5 +142,3 @@ class UserController extends \Cores\Controller {
         echo "</pre>";
     }
 }
-
-

@@ -40,7 +40,7 @@ Class UserModel extends \Cores\Model {
         // so insert to mysql.
         $result = false;
         if ( ! $result ) {
-            throw new \Services\Exception\DbInsertFailureException();
+            throw new \Cores\Exception\DbInsertFailureException();
         }
     }
 
@@ -53,7 +53,7 @@ Class UserModel extends \Cores\Model {
         // so delelt from mysql table.
         $result = false;
         if ( ! $result ) {
-            throw new \Services\Exception\DbDeleteFailureException();
+            throw new \Cores\Exception\DbDeleteFailureException();
         }
     }
 
@@ -63,10 +63,10 @@ Class UserModel extends \Cores\Model {
      * @param  YafException $exception [description]
      * @return [type]                  [description]
      */
-    /*public static function defaultExceptionHandler( \Yaf\Exception $exception ) {
+    public static function defaultExceptionHandler( \Yaf\Exception $exception ) {
         echo "<pre>";
         echo $exception->getMessage();
         echo " so we need to log it.";
         echo "</pre>";
-    }*/
+    }
 }
