@@ -56,7 +56,7 @@ class ExceptionHandler {
             }
         }
 
-        $this->defaultExceptionHandler();
+        $this->defaultExceptionHandler($exception );
     }
 
 
@@ -64,10 +64,10 @@ class ExceptionHandler {
      * 错误模板渲染
      * @return [type] [description]
      */
-    public function defaultExceptionHandler() {
-        $this->getView()->assign("exception", $this->_exception);
+    public function defaultExceptionHandler( \Yaf\Exception $exception ) {
+        $this->getView()->assign("exception", $exception);
 
-        if ( in_array($this->_exception->getCode(), array(
+        if ( in_array($exception->getCode(), array(
             \Yaf\ERR\NOTFOUND\ACTION,
             \Yaf\ERR\NOTFOUND\CONTROLLER,
             \Yaf\ERR\NOTFOUND\MODULE,
