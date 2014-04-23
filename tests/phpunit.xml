@@ -2,6 +2,7 @@
     <testsuites>
         <testsuite name="Controllers">
             <file>controllers/UserTest.php</file>
+            <file>controllers/LoginTest.php</file>
         </testsuite>
         <testsuite name="Models">
             <file>models/UserTest.php</file>
