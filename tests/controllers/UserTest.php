@@ -107,7 +107,7 @@ class UserTest extends TestCase {
 
     /**
      * 测试测试异常
-     * @expectedException \Services\Exception\DbInsertFailureException
+     * @expectedException \Cores\Exception\DbInsertFailureException
      * @return [type] [description]
      */
     public function testAddAction() {

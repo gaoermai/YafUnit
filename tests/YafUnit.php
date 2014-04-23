@@ -69,15 +69,19 @@ final class RequestHttp extends \Yaf\Request\Http {
     }
 
     public function setPost($name, $value) {
+        $this->setMethod('Post');
         $_POST[$name] = $value;
+        return $this;
     }
 
     public function setQuery($name, $value) {
         $_GET[$name] = $value;
+        return $this;
     }
 
     public function setCookie($name, $value) {
         $_COOKIE[$name] = $value;
+        return $this;
     }
 }
 
