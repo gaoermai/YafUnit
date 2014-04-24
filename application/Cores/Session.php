@@ -108,7 +108,6 @@ class Session {
      */
     public function set($name, $value) {
         $this->_session[$name] = $value;
-        $this->_store();
         return $this;
     }
 
@@ -122,7 +121,6 @@ class Session {
         if ( ! $this->has($name) ) return false;
 
         unset($this->_session[$name]);
-        $this->_store();
         return $this;
     }
 
@@ -177,7 +175,7 @@ class Session {
         //$this->_session_id   = "78f892c47a22b7fd9aca61897506b6ca";
         $this->_session_file = '/tmp/' . APPLICATION_CLI_SESSION_FILE_PREFIX . $this->_session_id;
         if ( file_exists($this->_session_file) ) {
-            $this->_fetch();
+            $this->_session = unserialize( file_get_contents($this->_session_file) );
             return;
         }
 
@@ -186,20 +184,10 @@ class Session {
 
 
     /**
-     * 将session存放到tmp文件中
+     * 析构函数 将session存放到tmp文件中
      * @return void
      */
-    protected function _store() {
+    public function __destruct() {
         file_put_contents($this->_session_file, serialize($this->_session) );
-    }
-
-
-    /**
-     * 从Session文件中读取出需要的数据
-     * @return void
-     */
-    protected function _fetch() {
-        $session = file_get_contents($this->_session_file);
-        $this->_session = unserialize($session);
     }
 }
