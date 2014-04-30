@@ -6,7 +6,7 @@
  */
 namespace Cores;
 
-class Exception extends \Yaf\Exception{
+class Exception extends \Exception{
 
     /**
      * [__construct description]

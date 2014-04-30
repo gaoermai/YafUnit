@@ -21,5 +21,7 @@ require_once VENDOR_PATH . "/autoload.php";
 $application = new Yaf\Application( APPLICATION_PATH . "/config/application.ini", APPLICATION_ENVIRONMENT);
 $application->bootstrap();
 
-! defined('IN_YAFUNIT') && $application->run();
+if ( ! defined('IN_YAFUNIT') ) {
+    $application->run();
+}
 ?>

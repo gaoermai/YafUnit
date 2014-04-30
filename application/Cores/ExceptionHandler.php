@@ -8,29 +8,18 @@ namespace Cores;
 
 /**
  * Yaf自带异常
- * define Yaf\MAX\BUILDIN\EXCEPTION   10
- * define Yaf\ERR\BASE                512
- * define Yaf\UERR\BASE               1024
- * define Yaf\ERR\MASK                127
- * define Yaf\ERR\STARTUP\FAILED      512
- * define Yaf\ERR\ROUTE\FAILED        513
- * define Yaf\ERR\DISPATCH\FAILED     514
- * define Yaf\ERR\NOTFOUND\MODULE     515
- * define Yaf\ERR\NOTFOUND\CONTROLLER 516
- * define Yaf\ERR\NOTFOUND\ACTION     517
- * define Yaf\ERR\NOTFOUND\VIEW       518
- * define Yaf\ERR\CALL\FAILED         519
- * define Yaf\ERR\AUTOLOAD_FAILED     520
- * define Yaf\ERR\TYPE\ERROR          521
+ * define YAF\ERR\STARTUP_FAILED      512
+ * define YAF\ERR\ROUTE_FAILED        513
+ * define YAF\ERR\DISPATCH_FAILED     514
+ * define YAF\ERR\NOTFOUND\MODULE     515
+ * define YAF\ERR\NOTFOUND\CONTROLLER 516
+ * define YAF\ERR\NOTFOUND\ACTION     517
+ * define YAF\ERR\NOTFOUND\VIEW       518
+ * define YAF\ERR\CALL_FAILED         519
+ * define YAF\ERR\AUTOLOAD_FAILED     520
+ * define YAF\ERR\TYPE_ERROR          521
  */
 class ExceptionHandler {
-
-    /**
-     * 异常
-     * @var Exception
-     */
-    protected $_exception = null;
-
 
     /**
      * 将当前ExceptionHandler作为捕捉异常处理
@@ -50,7 +39,7 @@ class ExceptionHandler {
             if ( method_exists($trace['class'], 'defaultExceptionHandler' ) ) {
                 call_user_func_array(
                     array( $trace['class'], 'defaultExceptionHandler' ), 
-                    array( $exception )
+                    array( $exception, $this->getView() )
                 );
                 exit();
             }
@@ -68,11 +57,11 @@ class ExceptionHandler {
         $this->getView()->assign("exception", $exception);
 
         if ( in_array($exception->getCode(), array(
-            \Yaf\ERR\NOTFOUND\ACTION,
-            \Yaf\ERR\NOTFOUND\CONTROLLER,
-            \Yaf\ERR\NOTFOUND\MODULE,
-            \Yaf\ERR\NOTFOUND\VIEW,
-            \Yaf\ERR\AUTOLOAD_FAILED,
+            \YAF\ERR\NOTFOUND\ACTION,
+            \YAF\ERR\NOTFOUND\CONTROLLER,
+            \YAF\ERR\NOTFOUND\MODULE,
+            \YAF\ERR\NOTFOUND\VIEW,
+            \YAF\ERR\AUTOLOAD_FAILED,
         )) ) {
             // 自定义错误
             $this->getView()->display('error/error_yaf.html');
