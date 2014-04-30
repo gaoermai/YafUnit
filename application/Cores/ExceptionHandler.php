@@ -27,7 +27,7 @@ class ExceptionHandler {
 
     /**
      * 异常
-     * @var \Yaf\Exception
+     * @var Exception
      */
     protected $_exception = null;
 
@@ -42,10 +42,10 @@ class ExceptionHandler {
 
     /**
      * 处理异常函数, 追踪每个节点进行处理
-     * @param  \Yaf\Exception $exception  异常对象
+     * @param  $exception  异常对象
      * @return void
      */
-    public function handler( \Yaf\Exception $exception ) {
+    public function handler( $exception ) {
         foreach ( $exception->getTrace() as $trace ) {
             if ( method_exists($trace['class'], 'defaultExceptionHandler' ) ) {
                 call_user_func_array(
@@ -56,7 +56,7 @@ class ExceptionHandler {
             }
         }
 
-        $this->defaultExceptionHandler();
+        $this->defaultExceptionHandler($exception );
     }
 
 
@@ -64,10 +64,10 @@ class ExceptionHandler {
      * 错误模板渲染
      * @return [type] [description]
      */
-    public function defaultExceptionHandler() {
-        $this->getView()->assign("exception", $this->_exception);
+    public function defaultExceptionHandler( $exception ) {
+        $this->getView()->assign("exception", $exception);
 
-        if ( in_array($this->_exception->getCode(), array(
+        if ( in_array($exception->getCode(), array(
             \Yaf\ERR\NOTFOUND\ACTION,
             \Yaf\ERR\NOTFOUND\CONTROLLER,
             \Yaf\ERR\NOTFOUND\MODULE,
