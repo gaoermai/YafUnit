@@ -124,7 +124,7 @@ class UserController extends \Cores\Controller {
         $model = new UserModel();
         try {
             $model->deleteRow();
-        } catch ( \Yaf\Exception $exception ) {
+        } catch ( \Exception $exception ) {
             echo "I catch it. so I want to render for it specially.";
         }
     }
@@ -132,10 +132,10 @@ class UserController extends \Cores\Controller {
 
     /**
      * 默认异常处理机制
-     * @param  YafException $exception [description]
-     * @return [type]                  [description]
+     * @param  Exception $exception
+     * @return
      */
-    public static function defaultExceptionHandler( \Yaf\Exception $exception ) {
+    public static function defaultExceptionHandler( $exception ) {
         echo "<pre>";
         print_r( $exception->getMessage() );
         echo " This error in controller. we must to render it.";

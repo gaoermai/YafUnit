@@ -31,49 +31,57 @@ class ExceptionHandler {
 
     /**
      * 处理异常函数, 追踪每个节点进行处理
+     * 异常对象可以是yaf自身的异常类，也可以是继承PHP自身的异常类，注意Yaf异常类并不是继承PHP的异常类
      * @param  $exception  异常对象
      * @return void
      */
     public function handler( $exception ) {
-        foreach ( $exception->getTrace() as $trace ) {
-            if ( method_exists($trace['class'], 'defaultExceptionHandler' ) ) {
-                call_user_func_array(
-                    array( $trace['class'], 'defaultExceptionHandler' ), 
-                    array( $exception, $this->getView() )
-                );
-                exit();
-            }
+        // 若是Yaf定义的异常被接收到
+        if ( $exception instanceof \Yaf\Exception ) {
+            $this->yafExceptionHandler( $exception );
+            return;
         }
 
-        $this->defaultExceptionHandler($exception );
+        // 若是自定义异常，大部分是会继承\Cores\Exception类，第三方可能是继承\Exception
+        foreach ( $exception->getTrace() as $trace ) {
+            if ( ! method_exists($trace['class'], 'defaultExceptionHandler' ) ) 
+                continue;
+
+            // 若对应的Controller/Model/Service等有设置默认捕捉，会将自动执行
+            call_user_func_array(
+                array( $trace['class'], 'defaultExceptionHandler' ), 
+                array( $exception, $this->getView() )
+            );
+            exit();
+        }
+
+        $this->defaultExceptionHandler( $exception );
+    }
+
+
+    /**
+     * Yaf错误模板渲染
+     * @return string
+     */
+    public function yafExceptionHandler( \Yaf\Exception $exception ) {
+        $this->getView()->assign("exception", $exception);
+        $this->getView()->display('error/error_yaf.html');
     }
 
 
     /**
      * 错误模板渲染
-     * @return [type] [description]
+     * @return string
      */
-    public function defaultExceptionHandler( $exception ) {
+    public function defaultExceptionHandler( \Exception $exception ) {
         $this->getView()->assign("exception", $exception);
-
-        if ( in_array($exception->getCode(), array(
-            \YAF\ERR\NOTFOUND\ACTION,
-            \YAF\ERR\NOTFOUND\CONTROLLER,
-            \YAF\ERR\NOTFOUND\MODULE,
-            \YAF\ERR\NOTFOUND\VIEW,
-            \YAF\ERR\AUTOLOAD_FAILED,
-        )) ) {
-            // 自定义错误
-            $this->getView()->display('error/error_yaf.html');
-        } else {
-            $this->getView()->display('error/error.html');
-        }
+        $this->getView()->display('error/error.html');
     }
 
 
     /**
      * 通过调度器initView方法可以返回\Cores\View核心视图对象
-     * @return [type] [description]
+     * @return \Yaf\View_Interface  $view   视图对象
      */
     public function getView() {
         return \Yaf\Dispatcher::getInstance()->initView( APPLICATION_VIEWS_PATH );
