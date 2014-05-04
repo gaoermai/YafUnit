@@ -1,7 +1,7 @@
 <?php
 namespace YafUnit;
 
-define('IN_YAFUNIT', true);
+define('APPLICATION_NOT_RUN', true);
 
 class TestCase extends \PHPUnit_Framework_TestCase {
 

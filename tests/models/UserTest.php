@@ -33,6 +33,6 @@ class UserModelTest extends TestCase {
         $model = new \UserModel();
         $count = $model->fetchCount();
 
-        $this->assertEquals(18600, $count);
+        $this->assertEquals(1600, $count);
     }
 }

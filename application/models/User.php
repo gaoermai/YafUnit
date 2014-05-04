@@ -60,10 +60,10 @@ Class UserModel extends \Cores\Model {
 
     /**
      * 默认异常处理机制
-     * @param  YafException $exception [description]
-     * @return [type]                  [description]
+     * @param  \Exception  $exception
+     * @return mixed
      */
-    public static function defaultExceptionHandler( \Yaf\Exception $exception ) {
+    public static function defaultExceptionHandler( \Exception $exception ) {
         echo "<pre>";
         echo $exception->getMessage();
         echo " so we need to log it.";

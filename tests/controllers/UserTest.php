@@ -1,6 +1,7 @@
 <?php
 /**
  * User Controller Test
+ * 基于控制器的标准测试，通过RequestSimple / RequestHttp模拟请求完成分发请求对象
  * @author Lancer He <lancer.he@gmail.com>
  * @since  2014-04-15
  */
@@ -24,7 +25,6 @@ class UserTest extends TestCase {
 
     /**
      * Post方式
-     * @return [type] [description]
      */
     public function testSaveAction() {
         $request = new RequestSimple("POST", "Index", "User", 'Save');
@@ -38,7 +38,6 @@ class UserTest extends TestCase {
 
     /**
      * Get方式
-     * @return [type] [description]
      */
     public function testUpdateAction() {
         $request = new RequestSimple("GET", "Index", "User", 'Update');
@@ -52,7 +51,6 @@ class UserTest extends TestCase {
 
     /**
      * View方式
-     * @return [type] [description]
      */
     public function testViewAction() {
         $request = new RequestSimple("GET", "Index", "User", 'View', array('id' => 1) );
@@ -65,7 +63,6 @@ class UserTest extends TestCase {
 
     /**
      * 测试Send Action service
-     * @return [type] [description]
      */
     /*public function testSendAction() {
         $request = new RequestSimple("GET", "Index", "User", 'Send');
@@ -78,7 +75,6 @@ class UserTest extends TestCase {
 
     /**
      * Route方式
-     * @return [type] [description]
      */
     public function testRegexAction() {
         $request = new RequestSimple("GET", "Index", "User", 'Regex', array('id' => 1, 'page'=>4) );
@@ -91,7 +87,6 @@ class UserTest extends TestCase {
 
     /**
      * 测试正则路由方式
-     * @return [type] [description]
      */
     public function testRegexRountAction() {
         $request = new RequestHttp("/user-255-2.html?tip=1&name=lancer");
@@ -108,7 +103,6 @@ class UserTest extends TestCase {
     /**
      * 测试测试异常
      * @expectedException \Cores\Exception\DbInsertFailureException
-     * @return [type] [description]
      */
     public function testAddAction() {
         $request = new RequestHttp("/user/add");
